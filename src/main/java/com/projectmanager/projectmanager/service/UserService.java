@@ -1,7 +1,10 @@
 package com.projectmanager.projectmanager.service;
 
+import com.projectmanager.projectmanager.dto.UserDTO;
 import com.projectmanager.projectmanager.model.User;
+import com.projectmanager.projectmanager.model.Rol;
 import com.projectmanager.projectmanager.respository.UserRepository;
+import com.projectmanager.projectmanager.respository.RolRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,30 +14,52 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final RolRepository rolRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RolRepository rolRepository) {
         this.userRepository = userRepository;
+        this.rolRepository = rolRepository;
     }
 
     public List<User> getAllUser(){
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(Long id){
-        return userRepository.findById(id);
+    public User getUserById(Long id){
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with Id: " + id));
     }
 
-    public User createUser(User user){
+    public User getUserByEmail(String email) {
+        return Optional.ofNullable(userRepository.findByEmail(email))
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    }
+
+    public User createUser(UserDTO userDTO){
+        Rol rol = rolRepository.findById(userDTO.rol_id)
+                .orElseThrow(()-> new RuntimeException("Rol not found"));
+        User user = new User();
+        user.setName(userDTO.name);
+        user.setEmail(userDTO.email);
+        user.setPhone(userDTO.phone);
+        user.setPassword(userDTO.password);
+        user.setRole(rol);
+
         return userRepository.save(user);
     }
 
-    public User updateUser(Long id,User data){
-        User user =userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        user.setName(data.getName());
-        user.setEmail(data.getEmail());
-        user.setPhone(data.getPhone());
-        user.setPassword(data.getPassword());
-        user.setRole(data.getRole());
+    public User updateUser(Long id,UserDTO userDTO){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Rol rol = rolRepository.findById(userDTO.rol_id)
+                .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
+
+        user.setName(userDTO.name);
+        user.setEmail(userDTO.email);
+        user.setPassword(userDTO.password);
+        user.setPhone(userDTO.phone);
+        user.setRole(rol);
 
         return userRepository.save(user);
     }
