@@ -16,6 +16,8 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String description;
+
     @Column(name = "assigned_at")
     private LocalDateTime assignedAt;
 
@@ -32,5 +34,12 @@ public class Task {
 
     public enum Status {
         INICIADO, EN_PROCESO, FINALIZADO
+    }
+
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
+
+    public enum Priority {
+        ALTA, MEDIA, BAJA
     }
 }

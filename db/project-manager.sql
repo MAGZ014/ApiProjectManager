@@ -2,6 +2,7 @@
 
 -- Crear enum
 CREATE TYPE task_status AS ENUM ('INICIADO', 'EN_PROCESO', 'FINALIZADO');
+CREATE TYPE task_priority AS ENUM ('ALTA', 'MEDIA', 'BAJA');
 
 -- Tabla de roles
 CREATE TABLE roles (
@@ -25,6 +26,8 @@ CREATE TABLE users (
 -- Tabla de tareas
 CREATE TABLE tasks (
   id SERIAL PRIMARY KEY,
+  description VARCHAR(500) NOT NULL,
+  priority task_priority NOT NULL,
   status task_status NOT NULL,
   assigned_at TIMESTAMP,
   completion_at TIMESTAMP,
