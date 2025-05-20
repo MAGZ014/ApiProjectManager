@@ -1,13 +1,15 @@
 package com.projectmanager.projectmanager.dto;
 
 import com.projectmanager.projectmanager.model.User;
+import lombok.Getter;
 
+@Getter
 public class UserResponseDTO {
-    public Long id;
-    public String name;
-    public String email;
-    public String phone;
-    public String rol;
+    private Long id;
+    private String name;
+    private String email;
+    private String phone;
+    private String rol;
 
     public UserResponseDTO(User user) {
         this.id = user.getId();

@@ -1,9 +1,14 @@
 package com.projectmanager.projectmanager.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class UserDTO {
-    public String name;
-    public String email;
-    public String password;
-    public String phone;
-    public Long rol_id;
+    private String name;
+    private String email;
+    private String password;
+    private String phone;
+    private Long rol_id;
 }

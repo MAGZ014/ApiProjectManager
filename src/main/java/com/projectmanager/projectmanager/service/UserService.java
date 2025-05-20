@@ -36,13 +36,13 @@ public class UserService {
     }
 
     public User createUser(UserDTO userDTO){
-        Rol rol = rolRepository.findById(userDTO.rol_id)
+        Rol rol = rolRepository.findById(userDTO.getRol_id())
                 .orElseThrow(()-> new RuntimeException("Rol not found"));
         User user = new User();
-        user.setName(userDTO.name);
-        user.setEmail(userDTO.email);
-        user.setPhone(userDTO.phone);
-        user.setPassword(userDTO.password);
+        user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
+        user.setPhone(userDTO.getPhone());
+        user.setPassword(userDTO.getPassword());
         user.setRole(rol);
 
         return userRepository.save(user);
@@ -52,13 +52,13 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        Rol rol = rolRepository.findById(userDTO.rol_id)
+        Rol rol = rolRepository.findById(userDTO.getRol_id())
                 .orElseThrow(() -> new RuntimeException("Rol no encontrado"));
 
-        user.setName(userDTO.name);
-        user.setEmail(userDTO.email);
-        user.setPassword(userDTO.password);
-        user.setPhone(userDTO.phone);
+        user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        user.setPhone(userDTO.getPhone());
         user.setRole(rol);
 
         return userRepository.save(user);
