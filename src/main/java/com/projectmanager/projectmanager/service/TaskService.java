@@ -7,6 +7,7 @@ import com.projectmanager.projectmanager.respository.TaskRepository;
 import com.projectmanager.projectmanager.respository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -30,7 +31,7 @@ public class TaskService {
 
         Task task = new Task();
         task.setDescription(taskDTO.getDescription());
-        task.setAssignedAt(taskDTO.getAssignedAt());
+        task.setAssignedAt(taskDTO.getAssignedAt() != null ? taskDTO.getAssignedAt(): LocalDateTime.now());
         task.setCompletionAt(taskDTO.getCompletionAt());
         task.setStatus(Task.Status.valueOf(taskDTO.getStatus()));
         task.setPriority(Task.Priority.valueOf(taskDTO.getPriority()));

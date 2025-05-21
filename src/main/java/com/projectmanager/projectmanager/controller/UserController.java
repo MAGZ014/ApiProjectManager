@@ -4,6 +4,7 @@ import com.projectmanager.projectmanager.dto.UserDTO;
 import com.projectmanager.projectmanager.dto.UserResponseDTO;
 import com.projectmanager.projectmanager.model.User;
 import com.projectmanager.projectmanager.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,13 +40,13 @@ public class UserController {
     }
 
     @PostMapping
-    public UserResponseDTO createUser(@RequestBody UserDTO userDTO) {
+    public UserResponseDTO createUser(@Valid @RequestBody UserDTO userDTO) {
         User user = userService.createUser(userDTO);
         return new UserResponseDTO(user);
     }
 
     @PutMapping("/{id}")
-    public UserResponseDTO updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+    public UserResponseDTO updateUser(@Valid @PathVariable Long id, @RequestBody UserDTO userDTO) {
         User user = userService.updateUser(id, userDTO);
         return new UserResponseDTO(user);
     }
