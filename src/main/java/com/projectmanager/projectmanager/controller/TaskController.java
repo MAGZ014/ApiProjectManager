@@ -4,6 +4,7 @@ import com.projectmanager.projectmanager.dto.TaskDTO;
 import com.projectmanager.projectmanager.dto.TaskResponseDTO;
 import com.projectmanager.projectmanager.model.Task;
 import com.projectmanager.projectmanager.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,13 +27,13 @@ public class TaskController {
     }
 
     @PostMapping
-    public TaskResponseDTO createTask(@RequestBody TaskDTO taskDTO) {
+    public TaskResponseDTO createTask(@Valid @RequestBody TaskDTO taskDTO) {
         Task task = taskService.createTask(taskDTO);
         return new TaskResponseDTO(task);
     }
 
     @PutMapping("/{id}")
-    public TaskResponseDTO updateUser(@PathVariable Long id, @RequestBody TaskDTO taskDTO) {
+    public TaskResponseDTO updateUser(@Valid @PathVariable Long id, @RequestBody TaskDTO taskDTO) {
         Task task = taskService.updateTask(id, taskDTO);
         return new TaskResponseDTO(task);
     }
