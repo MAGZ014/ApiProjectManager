@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -34,7 +33,7 @@ public class UserService {
     }
 
     public User getUserByEmail(String email) {
-        return Optional.ofNullable(userRepository.findByEmail(email))
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
     }
 
