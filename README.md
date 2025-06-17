@@ -1,5 +1,3 @@
-# ApiProjectManager
-
 # Project Manager API
 
 Una API RESTful basica para gestión de proyectos desarrollada con Spring Boot y autenticación JWT.
